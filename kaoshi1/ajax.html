@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            *{
+                margin:0;
+                padding:0;
+            }
+           .hidden{
+               position: absolute;
+               left:300px;
+               top:300px;
+               width:300px;
+               display: none;
+               background:red;
+           } 
+           p{
+               width:300px;
+               height:30px;
+               background:greenyellow;
+               text-align: center;
+           }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td clss="getid">id</td>
+            <td class="getname">商品名称</td>
+            <td class="getmuch">商品价格</td>
+            <td><button  class="set">操作</button></td>
+        </tr>
+    </table>
+    <div class="hidden">
+        <p class="sport">点击我拖动</p>
+        <form action="" >
+            <button class="yes">确认</button>
+            <button class="no">否</button>
+        </form>
+   </div>
+    <script>
+    var $getId = document.querySelector('.getid');
+    var $getName = document.querySelector('.getname');
+    var $getMuch = document.querySelector('.getmuch');
+    var $set = document.querySelector('.set');
+    var $hidden = document.querySelector('.hidden');
+    var $yes = document.querySelector('.yes');
+    var $no = document.querySelector('.no');
+    var $sport =document.querySelector('.sport');
+    $set.onclick =function(){
+        $hidden.style.display="block";
+    }
+    $no.onclick=function(){
+        $hidden.style.display="none";
+    }
+    $sport.onmousedown = function (event ){
+       	   event = event || window.event ;
+           var maxLeft = window.innerWidth - $hidden.offsetWidth ;
+           var maxTop =  window.innerHeight - $hidden.offsetHeight ;
+           var left = event.clientX -$hidden.offsetLeft;
+           var top = event.clientY-$hidden.offsetTop;
+           document.onmousemove = function(event){
+           event  = event || window.event;
+            var mouseL = event.clientX ;
+            var mouseT = event.clientY ;
+            if(mouseL > maxLeft + left ){
+                mouseL = maxLeft + left
+            } else if(mouseL<left){
+                mouseL = left ;
+            }
+            if(mouseT>maxTop){
+               mouseT = maxTop ;
+            } else if(mouseT<0){
+                mouseT = 0 ;
+            }
+             $hidden.style.left = mouseL -left   +'px';
+             $hidden.style.top = mouseT  + 'px' ;
+           }
+           document.onmouseup =function(){
+            document.onmousemove = 'null' ;
+           }
+       }
+       $yes.onclick=function(ev){ 
+              ev=ev||window.event;
+              event.preventDefault();
+              var data = {
+                    "id":'id',
+                    "name":'商品名称',
+                    "much":'商品价格'
+                }
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST','json.php',true);
+                data = JSON.stringify(data);
+                console.log(data)
+                xhr.send(data);
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState === 4 && xhr.status === 200) {  
+                        var json = xhr.responseText;
+                        json = JSON.parse(json);
+                        console.log(json);
+                    }
+            }
+    }
+    </script>
+</body>
+</html>

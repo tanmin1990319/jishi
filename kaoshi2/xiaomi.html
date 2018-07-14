@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/jquery.js"></script>
+    <link rel="stylesheet" href="css/xiaomi.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapbox">
+        <ul class="ulbox">
+            <li>
+                <img src="img/img1.jpg" alt="">
+                <p>非常喜欢电视很优惠1</p>
+            </li>
+            <li>
+                <img src="img/img1.jpg" alt="">
+                <p>非常喜欢电视很优惠2</p>
+            </li>
+            <li>
+                <img src="img/img1.jpg" alt="">
+                <p>非常喜欢电视很优惠3</p>
+             </li>
+            <li>
+                <img src="img/img1.jpg" alt="">
+                <p>非常喜欢电视很优惠4</p>
+            </li>          
+        </ul>
+    </div>
+    <script src="js/xiaomi.js"></script>
+    <script>
+        $('.ulbox img').on('mouseenter',function(){
+            $(this).animate({top:'30px'});
+            $(this).siblings('p').animate({top:'340px'});
+        })
+        $('.ulbox img').on('mouseleave',function(){
+            setTimeout(function(){
+                $('.ulbox img').stop()
+                $('.ulbox p').stop()
+            },3000)
+          
+            $(this).animate({top:'50px'});
+            $(this).siblings('p').animate({top:'400px'});
+        })
+    </script>
+</body>
+</html>
